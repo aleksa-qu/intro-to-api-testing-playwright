@@ -1,0 +1,1 @@
+ers37255WebstormProjectsintro-to-api-testing-playwright prettier --write tests/\*\*/\*.\{ts\,tsx\,js\,jsx\,json\,css\,md\}
