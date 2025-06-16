@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 import { StatusCodes } from 'http-status-codes';
-import { OrderDtoHw10 } from './order-dto-hw10';
+import { OrderDtoHw10 } from './dto/order-dto-hw10';
 [1, 100, 1000, 10000].forEach((incomeValue) => {
   test(`Successful calculation with income = ${incomeValue} returns 200`, async ({ request }) => {
     const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
