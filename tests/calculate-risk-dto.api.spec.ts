@@ -1,10 +1,10 @@
 import { expect, test } from '@playwright/test';
 
 import { StatusCodes } from 'http-status-codes';
-import { OrderDtoHw10 } from './dto/order-dto-hw10';
+import { CalculateRiskDto } from './dto/calculate-risk-dto';
 [1, 100, 1000, 10000].forEach((incomeValue) => {
   test(`Successful calculation with income = ${incomeValue} returns 200`, async ({ request }) => {
-    const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+    const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
     order.income = incomeValue;
 
     const response = await request.post(
@@ -28,7 +28,7 @@ import { OrderDtoHw10 } from './dto/order-dto-hw10';
 });
 
 test('Unsuccessful calculation of risk with income equal to 0 returns 400', async ({ request }) => {
-  const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+  const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
   order.income = 0;
 
   const response = await request.post(
@@ -47,7 +47,7 @@ test('Unsuccessful calculation of risk with income equal to 0 returns 400', asyn
 });
 
 test('Unsuccessful calculation of risk with negative income returns 400', async ({ request }) => {
-  const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+  const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
   order.income = -1;
 
   const response = await request.post(
@@ -65,7 +65,7 @@ test('Unsuccessful calculation of risk with negative income returns 400', async 
 });
 
 test('Unsuccessful calculation of risk with empty income returns 400', async ({ request }) => {
-  const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+  const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
   order.income = null;
 
   const response = await request.post(
@@ -83,7 +83,7 @@ test('Unsuccessful calculation of risk with empty income returns 400', async ({ 
 });
 [1, 100, 1000, 10000].forEach((debtValue) => {
   test(`Successful calculation with debt = ${debtValue} returns 200`, async ({ request }) => {
-    const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+    const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
     order.debt = debtValue;
 
     const response = await request.post(
@@ -107,7 +107,7 @@ test('Unsuccessful calculation of risk with empty income returns 400', async ({ 
 });
 
 test('Unsuccessful calculation of risk with negative debt returns 400', async ({ request }) => {
-  const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+  const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
   order.debt = -1;
 
   const response = await request.post(
@@ -127,7 +127,7 @@ test('Unsuccessful calculation of risk with negative debt returns 400', async ({
 });
 
 test('Successful calculation of risk with empty debt returns 200', async ({ request }) => {
-  const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+  const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
   order.debt = null;
 
   const response = await request.post(
@@ -148,7 +148,7 @@ test('Successful calculation of risk with empty debt returns 200', async ({ requ
 });
 [17, 40, 60].forEach((ageValue) => {
   test(`Successful calculation with age = ${ageValue} returns 200`, async ({ request }) => {
-    const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+    const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
     order.age = ageValue;
 
     const response = await request.post(
@@ -174,7 +174,7 @@ test('Successful calculation of risk with empty debt returns 200', async ({ requ
   test(`Unsuccessful calculation with age = ${ageValue} returns 200, but negative risk decision`, async ({
     request,
   }) => {
-    const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+    const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
     order.age = ageValue;
 
     const response = await request.post(
@@ -198,7 +198,7 @@ test('Successful calculation of risk with empty debt returns 200', async ({ requ
 });
 
 test(`Unsuccessful calculation with empty age returns 400`, async ({ request }) => {
-  const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+  const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
   order.age = null;
 
   const response = await request.post(
@@ -218,7 +218,7 @@ test(`Unsuccessful calculation with empty age returns 400`, async ({ request }) 
 });
 
 test(`Unsuccessful calculation with negative age returns 400`, async ({ request }) => {
-  const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+  const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
   order.age = -1;
 
   const response = await request.post(
@@ -240,7 +240,7 @@ test(`Unsuccessful calculation with negative age returns 400`, async ({ request 
 test(`Successful calculation of risk with employment status true returns 200 `, async ({
   request,
 }) => {
-  const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+  const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
   order.employed = true;
 
   const response = await request.post(
@@ -263,7 +263,7 @@ test(`Successful calculation of risk with employment status true returns 200 `, 
 test(`Successful calculation of risk with employment status false returns 200, but negative risk decision `, async ({
   request,
 }) => {
-  const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+  const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
   order.employed = false;
 
   const response = await request.post(
@@ -286,7 +286,7 @@ test(`Successful calculation of risk with employment status false returns 200, b
   test(`Successful calculation with loanPeriod = ${loanPeriodValue} returns 200`, async ({
     request,
   }) => {
-    const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+    const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
     order.loanPeriod = loanPeriodValue;
 
     const response = await request.post(
@@ -312,7 +312,7 @@ test(`Successful calculation of risk with employment status false returns 200, b
 });
 
 test(`Unsuccessful calculation with loanPeriod returns 400`, async ({ request }) => {
-  const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+  const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
   order.loanPeriod = null;
 
   const response = await request.post(
@@ -334,7 +334,7 @@ test(`Unsuccessful calculation with loanPeriod returns 400`, async ({ request })
 test(`Unsuccessful calculation of risk with 0 months loan period returns 400`, async ({
   request,
 }) => {
-  const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+  const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
   order.loanPeriod = 0;
 
   const response = await request.post(
@@ -356,7 +356,7 @@ test(`Unsuccessful calculation of risk with 0 months loan period returns 400`, a
 test(`Unsuccessful calculation of risk with negative loan period returns 400`, async ({
   request,
 }) => {
-  const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+  const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
   order.loanPeriod = -1;
 
   const response = await request.post(
@@ -378,7 +378,7 @@ test(`Unsuccessful calculation of risk with negative loan period returns 400`, a
   test(`Unsuccessful calculation of risk with loanPeriod = ${loanPeriodValue} less than 3 months returns 20 but negative risk decision`, async ({
     request,
   }) => {
-    const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+    const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
     order.loanPeriod = loanPeriodValue;
 
     const response = await request.post(
@@ -407,7 +407,7 @@ test.describe('Loan amount value checks', () => {
     test(`Successful calculation with loanAmount = ${loanAmountValue} returns 200`, async ({
       request,
     }) => {
-      const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+      const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
       order.loanAmount = loanAmountValue;
 
       const response = await request.post(
@@ -434,7 +434,7 @@ test.describe('Loan amount value checks', () => {
 });
 
 test(`Unsuccessful calculation of risk with loan amount 0 returns 400`, async ({ request }) => {
-  const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+  const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
   order.loanAmount = 0;
 
   const response = await request.post(
@@ -457,7 +457,7 @@ test(`Unsuccessful calculation of risk with loan amount 0 returns 400`, async ({
 test(`Unsuccessful calculation of risk with negative loan amount returns 400`, async ({
   request,
 }) => {
-  const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+  const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
   order.loanAmount = -1;
 
   const response = await request.post(
@@ -477,7 +477,7 @@ test(`Unsuccessful calculation of risk with negative loan amount returns 400`, a
 });
 
 test(`Unsuccessful calculation of risk with empty loan amount returns 400`, async ({ request }) => {
-  const order = OrderDtoHw10.calculateRiskScoreWithRandomData();
+  const order = CalculateRiskDto.calculateRiskScoreWithRandomData();
   order.loanAmount = null;
 
   const response = await request.post(
@@ -497,7 +497,7 @@ test(`Unsuccessful calculation of risk with empty loan amount returns 400`, asyn
 });
 
 test(`Unsuccessful calculation of risk with empty fields returns 400`, async ({ request }) => {
-  const order: Partial<ReturnType<typeof OrderDtoHw10.calculateRiskScoreWithRandomData>> = {
+  const order: Partial<ReturnType<typeof CalculateRiskDto.calculateRiskScoreWithRandomData>> = {
     income: null,
     debt: null,
     age: null,
