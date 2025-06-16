@@ -1,4 +1,4 @@
-export class OrderDtoHw10 {
+export class CalculateRiskDto {
   income: number | null;
   debt: number | null;
   age: number | null;
@@ -21,7 +21,7 @@ export class OrderDtoHw10 {
     this.loanAmount = loanAmount;
     this.loanPeriod = loanPeriod;
   }
-  static calculateRiskScoreWithRandomData(): OrderDtoHw10 {
+  static calculateRiskScoreWithRandomData(): CalculateRiskDto {
     const income = Math.floor(Math.random() * 10000) + 1;
     const debt = Math.floor(Math.random() * 5000);
     const age = Math.floor(Math.random() * 50) + 17;
@@ -30,6 +30,6 @@ export class OrderDtoHw10 {
     const loanPeriodOptions = [3, 6, 9, 12, 18, 24, 30, 36];
     const loanPeriod = loanPeriodOptions[Math.floor(Math.random() * loanPeriodOptions.length)];
 
-    return new OrderDtoHw10(income, debt, age, employed, loanAmount, loanPeriod);
+    return new CalculateRiskDto(income, debt, age, employed, loanAmount, loanPeriod);
   }
 }
