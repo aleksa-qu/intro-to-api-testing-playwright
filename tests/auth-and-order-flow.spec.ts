@@ -208,4 +208,77 @@ test.describe('Tallinn delivery API tests', () => {
     expect.soft(orderResponseBody.status).toBe('OPEN');
     expect.soft(orderResponseBody.id).toBeDefined();
   });
+
+  test('Successful login, create order and get information about this order', async ({
+    request,
+  }) => {
+    const requestBody = LoginDto.createLoginWithCorrectData();
+    const loginResponse = await request.post(`${serviceURL}${loginPath}`, {
+      data: requestBody,
+    });
+    const jwt = await loginResponse.text();
+
+    const orderCreateResponse = await request.post(`${serviceURL}${orderPath}`, {
+      data: OrderDto.createOrderWithRandomData(),
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    const createdOrder = await orderCreateResponse.json();
+    const orderId = createdOrder.id;
+
+    const orderResponse = await request.get(`${serviceURL}${orderPath}/${orderId}`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    const orderResponseBody = await orderResponse.json();
+
+    expect.soft(orderResponse.status()).toBe(StatusCodes.OK);
+    expect.soft(orderResponseBody.status).toBe('OPEN');
+    expect.soft(orderResponseBody.id).toBeDefined();
+  });
+
+  test('Successful login, create order and delete this order, verify deletion', async ({
+    request,
+  }) => {
+    const requestBody = LoginDto.createLoginWithCorrectData();
+    const loginResponse = await request.post(`${serviceURL}${loginPath}`, {
+      data: requestBody,
+    });
+    const jwt = await loginResponse.text();
+
+    const orderCreateResponse = await request.post(`${serviceURL}${orderPath}`, {
+      data: OrderDto.createOrderWithRandomData(),
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    const createdOrder = await orderCreateResponse.json();
+    const orderId = createdOrder.id;
+
+    const orderResponse = await request.delete(`${serviceURL}${orderPath}/${orderId}`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    const orderResponseBody = await orderResponse.json();
+
+    expect.soft(orderResponse.status()).toBe(StatusCodes.OK);
+    expect.soft(orderResponseBody).toBe(true);
+
+    const getDeletedOrderResponse = await request.get(`${serviceURL}${orderPath}/${orderId}`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    expect.soft(getDeletedOrderResponse.status()).toBe(StatusCodes.OK);
+    const bodyText = await getDeletedOrderResponse.text();
+    expect.soft(bodyText).toBe('');
+  });
 });
